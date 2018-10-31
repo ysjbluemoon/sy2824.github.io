@@ -18,14 +18,17 @@ library(stringr)
 
 ```{r include=FALSE}
 # Data cleaning
+
 data(rest_inspec)
-  rest_inspec %>% 
+
+rest_inspec = rest_inspec %>% 
   janitor::clean_names() %>% 
   filter(!is.na(score)) %>%
   filter(boro != "Missing") %>% 
   select(boro, critical_flag, cuisine_description, dba, score)
 
 rest_inspec = as.tibble(rest_inspec)
+
 ```
 
 Column {data-width=500}
