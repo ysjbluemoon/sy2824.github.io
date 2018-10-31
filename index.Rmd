@@ -1,0 +1,31 @@
+---
+title: "Personal Webpage of Sijia Yue"
+---
+
+### Self-introduction
+
+* First year master student in Columbia University
+
+* Mailman School of Public Health
+
+* MS in Biostatistics
+
+* Theory and Methods Track
+
+
+### Links about myself
+
+* [Linked in](https://www.linkedin.com/in/sijia-yue-4100b7158/)
+
+* [Facebook](https://www.facebook.com/sijia.yue.92)
+
+* [Github](https://github.com/ysjbluemoon)
+
+### I have resume page
+
+My resume page is [here](projects.html)
+
+### Plotly page for question 2
+
+The plotly page is [here](plotly.html)
+
