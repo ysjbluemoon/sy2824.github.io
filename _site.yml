@@ -12,7 +12,7 @@ navbar:
     - icon: fa-github fa-lg
       href: http://github.com/ysjbluemoon/
     - icon: fa-linkedin fa-lg
-      href: https://www.linkedin.com/feed/
+      href: https://www.linkedin.com/in/sijia-yue-4100b7158/
 output:
   html_document:
     theme: flatly
