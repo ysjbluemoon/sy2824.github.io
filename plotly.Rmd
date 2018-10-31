@@ -1,0 +1,113 @@
+---
+title: "Plotly!"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r include=FALSE}
+library(tidyverse)
+library(viridis)
+library(flexdashboard)
+## Loading required package: viridisLite
+library(p8105.datasets)
+library(plotly)
+library(stringr)
+```
+
+```{r include=FALSE}
+# Data cleaning
+data(rest_inspec)
+  rest_inspec %>% 
+  janitor::clean_names() %>% 
+  filter(!is.na(score)) %>%
+  filter(boro != "Missing") %>% 
+  select(boro, critical_flag, cuisine_description, dba, score)
+
+rest_inspec = as.tibble(rest_inspec)
+```
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+### Scatter plot of mean score for different cuisine descriptions from different boro
+
+```{r}
+mean_score_data = 
+  rest_inspec %>% 
+  group_by(cuisine_description, boro) %>% 
+  summarize(mean_score = mean(score, na.rm = TRUE))
+
+scatter_plot = 
+  ggplot(mean_score_data, aes(x = boro, y = mean_score, color = 
+                                str_wrap(cuisine_description, 20))) +
+  geom_point(alpha = .5) +
+  labs(
+    color = "Cuisine Description",
+    x = "Boro",
+    y = "Mean score"
+  ) 
+  
+ggplotly(scatter_plot)
+```
+
+
+Column {data-width=500}
+-----------------------------------------------------------------------
+
+### Barplot of inspections of different critical flags from different boros
+
+```{r}
+inspection_data =
+  rest_inspec %>% 
+  count(boro, critical_flag) %>% 
+  mutate(boro = fct_reorder(boro, desc(n)))
+
+f = list(
+  family = "Courier New, monospace",
+  size = 18,
+  color = "#7f7f7f"
+)
+x = list(
+  title = "Boro names",
+  titlefont = f
+)
+y = list(
+  title = "Number of inspections",
+  titlefont = f
+)
+
+plot_ly(inspection_data, x = ~boro, y = ~n, color = ~critical_flag, type = "bar") %>% 
+  layout(
+    xaxis = x, 
+    yaxis = y
+    )
+  
+```
+
+
+
+### Boxplot of the score distribution of NYC restaurants in different boros
+
+```{r}
+f = list(
+  family = "Courier New, monospace",
+  size = 18,
+  color = "#7f7f7f"
+)
+x = list(
+  title = "Boro names",
+  titlefont = f
+)
+y = list(
+  title = "Scores of restaurants",
+  titlefont = f
+)
+
+plot_ly(rest_inspec, y = ~score, color = ~boro, type = "box",
+          colors = "Set2") %>% 
+  layout(
+    xaxis = x, 
+    yaxis = y
+  )
+```
