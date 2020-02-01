@@ -23,7 +23,7 @@ title: "Personal Webpage of Sijia Yue"
 
 ### I have resume page
 
-My resume page is [here](projects.html)
+My resume page is [here](resume.html)
 
 ### Plotly page for question 2
 
