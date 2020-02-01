@@ -1,0 +1,20 @@
+---
+title: "Projects"
+---
+
+<h3> Image classification </h3>
+[Columbia Morningside campus](https://ysjbluemoon.github.io)
+
+
+
+
+### Organ Donar
+[NY State](https://jackyan0320.github.io/p8105_final_project/)
+
+### Longitudinal Data Analysis
+[LDA](images/LDA.pdf)
+
+<h3> Airbnb on Plotly </h3>
+[Airbnb on Plotly](plotly.html)
+
+
