@@ -1,31 +1,18 @@
 ---
-title: "Personal Webpage of Sijia Yue"
+title: "Sijia Yue"
 ---
 
-### Self-introduction
+<img src="images/Profile.jpg" style="width:80%">
 
-* First year master student in Columbia University
+### Howdy!
 
-* Mailman School of Public Health
+My name is Sijia Yue. I am a second year master student in biostatistics at Columbia University Mailman School of Public Health. Prior to Columbia, I earned a bachelor of engineering degree in Beijing University of Posts and Telecommunications with a joint degree in Queen Mary University of London. Currently, I am a part time research assistant in Columbia University.
 
-* MS in Biostatistics
-
-* Theory and Methods Track
+I am interested in data science and machine learning models, especially in healthcare industry and clinical settings. During my free time, I enjoy playing guitar, travelling and reading fancy posts on Medium.
 
 
-### Links about myself
 
-* [Linked in](https://www.linkedin.com/in/sijia-yue-4100b7158/)
+[Resume](resume.html) | [LinkedIn](https://www.linkedin.com/in/sijia-yue-4100b7158/) | [Github](https://github.com/ysjbluemoon)
 
-* [Facebook](https://www.facebook.com/sijia.yue.92)
 
-* [Github](https://github.com/ysjbluemoon)
-
-### I have resume page
-
-My resume page is [here](resume.html)
-
-### Plotly page for question 2
-
-The plotly page is [here](plotly.html)
 
