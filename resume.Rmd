@@ -3,4 +3,4 @@ title: "Resume of Sijia Yue"
 
 ---
 
-<img src="images/Sijia_Yue_Resume.pdf" style="width:75%">
+<img src="images/Sijia Yue_library.docx" style="width:75%">
