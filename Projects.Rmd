@@ -6,7 +6,8 @@ title: "Projects"
 [Columbia Morningside campus](https://ysjbluemoon.github.io)
 
 
-
+### Daily Summary Map of Ncovid-19
+[Ncovid-19 Map](Ncovid.html)
 
 ### Organ Donar
 [NY State](https://jackyan0320.github.io/p8105_final_project/)

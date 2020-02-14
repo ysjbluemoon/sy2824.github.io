@@ -1,0 +1,127 @@
+---
+title: "Ncovid"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(rvest)
+library(tidyverse)
+library(jsonlite)
+library(lubridate)
+library(plotly)
+library(sf)
+library(ggplot2)
+library(worldtilegrid)
+```
+
+
+
+Column {data-width=550}
+-----------------------------------------------------------------------
+
+### Chart A
+```{r}
+fromJSON("https://view.inews.qq.com/g2/getOnsInfo?name=disease_h5&=1581615429898") %>% 
+  .$data %>% 
+  writeLines(file.path('real_json'))
+
+cov_data = fromJSON(file.path('real_json')) 
+china_total = cov_data$chinaTotal %>% as_tibble()
+china_add = cov_data$chinaAdd %>% as_tibble()
+day_list = cov_data$chinaDayList 
+day_add_list = cov_data$chinaDayAddList 
+
+```
+
+
+```{r}
+daily_summary = paste0("Due ",date(cov_data$lastUpdateTime),", confirmed: ",china_total$confirm," suspected: ",china_total$suspect)
+
+```
+
+
+```{r}
+a = cov_data$areaTree %>% pull(children)
+province_names = a[1][[1]]$name  
+province_data =  a[1][[1]]$total  
+
+
+add_province = function(df){
+  rownames(df) = province_names
+  df = 
+    df %>% 
+    rownames_to_column('name')
+  return(df %>% as_tibble())
+}
+
+province_daily_count = add_province(province_data) 
+province_daily_count$name=fct_reorder(province_daily_count$name,province_daily_count$confirm)
+
+
+mapdata = read_sf("chinamap/中国省界.shp") %>% 
+  janitor::clean_names() 
+
+prov_map_data = inner_join(mapdata,province_daily_count,by='name')
+title1 = "Data map of NCodiv-19 confirmed people in China "
+prov_daily_map = 
+  ggplot(prov_map_data) +
+  geom_sf(aes(fill = log10(confirm)),alpha =.8) +
+  theme_bw() +
+  worldtilegrid::theme_enhance_wtg()+
+  viridis::scale_fill_viridis()+
+  labs(
+    title = paste0(title1,'<br>','<sup>','</sup>',daily_summary)
+  )+
+  theme(axis.ticks = element_blank(),rect = element_blank())
+ 
+ggplotly(prov_daily_map) 
+```
+
+Column {data-width=450}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+total_daily_ggplot = 
+  day_list %>% 
+  mutate(date = ymd(paste0("2020.",date))) %>% 
+  select(date,confirm,dead, heal, suspect) %>% 
+  gather(key='type',value = 'count',confirm:suspect) %>% 
+  ggplot(aes(x = date, y = count,color =type))+
+  geom_line()+
+  geom_point()+
+  theme_classic()+
+  scale_color_viridis_d()+
+  labs(
+    title = "Total Count of NCODIV-19",
+    caption = daily_summary
+  )
+
+ggplotly(total_daily_ggplot)
+```
+
+### Chart C
+
+```{r}
+add_daily_ggplot = 
+  day_add_list %>% 
+  mutate(date = ymd(paste0("2020.",date))) %>% 
+  select(date,confirm,dead, heal, suspect) %>% 
+  gather(key='type',value = 'count',confirm:suspect) %>% 
+  ggplot(aes(x = date, y = count,color =type))+
+  geom_line()+
+  geom_point()+
+  theme_classic()+
+  scale_color_viridis_d()+
+  labs(
+    title = "Total Count of NCODIV-19"
+  )
+
+ggplotly(add_daily_ggplot)
+```
+
